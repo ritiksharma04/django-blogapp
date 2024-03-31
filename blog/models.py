@@ -4,6 +4,11 @@ from django.db import models
 #3 models {Post, Category, Comments}
 class Category(models.Model):
     name = models.CharField(max_length = 30)
+    class Meta:
+        verbose_name_plural = "categories"
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length = 255) 
@@ -11,6 +16,9 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add = True)
     last_modified = models.DateTimeField(auto_now = True)
     Categories = models.ManyToManyField("Category", related_name = "posts")
+    
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
@@ -19,3 +27,5 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey("Post", on_delete=models.CASCADE) #2nd argument for deleting comment when post deleted
 
+    def __str__(self):
+        return f"{self.author} on '{self.post}'"
