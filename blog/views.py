@@ -3,9 +3,9 @@ from django.shortcuts import render
 from blog.models import Category, Post, Comment
 
 def blog_index(request):
-    posts = Post.object.all().orderby("-created on")
+    posts = Post.objects.all().order_by("-created_on")
     context = {
-        "posts": posts
+        "posts": posts,
     }
     return render(request, "blog/index.html", context)
 
